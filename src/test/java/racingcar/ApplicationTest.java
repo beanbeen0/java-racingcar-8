@@ -68,6 +68,32 @@ class ApplicationTest extends NsTest {
                 .containsExactly("pobi", "woni");
     }
 
+    @Test
+    void 무작위_수가_4미만이면_자동차는_전진하지_않는다() {
+        Car car1 = new Car("car1");
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+        assertRandomNumberInRangeTest(
+                () -> {
+                    car1.moveRandomly();
+                },
+                0, 1, 2, 3
+        );
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+    }
+
+    @Test
+    void 무작위_수가_4이상이면_자동차는_전진한다() {
+        Car car1 = new Car("car1");
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+        assertRandomNumberInRangeTest(
+                () -> {
+                    car1.moveRandomly();
+                },
+                4, 5, 6, 7, 8, 9
+        );
+        assertThat(car1.getCurrentPosition()).isEqualTo(1);
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
