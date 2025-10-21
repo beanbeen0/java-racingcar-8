@@ -11,6 +11,7 @@ public class Application {
         List<String> carNames = getCarNameList();
         int totalRounds = getNumberOfTries();
         List<Car> cars = createCarsFrom(carNames);
+        takeOneRound(cars);
     }
 
     public static List<String> getCarNameList() {
@@ -29,5 +30,9 @@ public class Application {
         return names.stream()
                 .map(Car::new)
                 .toList();
+    }
+
+    public static void takeOneRound(List<Car> cars) {
+        cars.forEach(Car::moveRandomly);
     }
 }

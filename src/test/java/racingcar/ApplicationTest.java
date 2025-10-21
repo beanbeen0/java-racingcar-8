@@ -10,8 +10,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberI
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static racingcar.Application.getCarNameList;
-import static racingcar.Application.getNumberOfTries;
+import static racingcar.Application.*;
 
 class ApplicationTest extends NsTest {
     private static final int MOVING_FORWARD = 4;
@@ -92,6 +91,48 @@ class ApplicationTest extends NsTest {
                 4, 5, 6, 7, 8, 9
         );
         assertThat(car1.getCurrentPosition()).isEqualTo(1);
+    }
+
+    @Test
+    void 한_라운드_전진_테스트() {
+        Car car1 = new Car("car1");
+        Car car2 = new Car("car2");
+        Car car3 = new Car("car3");
+        List<Car> cars = List.of(car1, car2, car3);
+
+        List<Integer> beforeCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
+
+        assertRandomNumberInRangeTest(
+                () -> {
+                    takeOneRound(cars);
+                },
+                5, 4, 3
+        );
+
+        List<Integer> AfterCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        assertThat(AfterCarsPositions).containsExactly(1, 1, 0);
+    }
+
+    @Test
+    void 한_라운드_전진_테스트2() {
+        Car car1 = new Car("car1");
+        Car car2 = new Car("car2");
+        Car car3 = new Car("car3");
+        List<Car> cars = List.of(car1, car2, car3);
+
+        List<Integer> beforeCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
+
+        assertRandomNumberInRangeTest(
+                () -> {
+                    takeOneRound(cars);
+                },
+                0, 0, 9
+        );
+
+        List<Integer> AfterCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        assertThat(AfterCarsPositions).containsExactly(0, 0, 1);
     }
 
     @Override
