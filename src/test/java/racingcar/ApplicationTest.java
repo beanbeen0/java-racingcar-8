@@ -3,10 +3,13 @@ package racingcar;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static racingcar.Application.getCarNameList;
 
 class ApplicationTest extends NsTest {
     private static final int MOVING_FORWARD = 4;
@@ -28,6 +31,17 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
             assertThatThrownBy(() -> runException("pobi,javaji", "1"))
                 .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 쉼표로_구분된_이름을_입력하면_개별_이름_리스트로_변환한다() {
+        String str = "pobi,woni";
+        assertSimpleTest(
+                () -> {
+                    System.setIn(new ByteArrayInputStream(str.getBytes()));
+                    assertThat(getCarNameList()).containsExactly("pobi", "woni");
+                }
         );
     }
 
