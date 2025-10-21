@@ -14,6 +14,14 @@ public class Application {
         takeOneRound(cars);
     }
 
+    public static void printAllCarsPositions(List<Car> cars) {
+        cars.forEach(currentCar -> printCarPosition(currentCar.getName(),currentCar.getCurrentPosition()));
+    }
+
+    public static void printCarPosition(String name, int currentPosition) {
+        System.out.println(name + " : " +  "-".repeat(currentPosition));
+    }
+
     public static List<String> getCarNameList() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String input = Console.readLine();

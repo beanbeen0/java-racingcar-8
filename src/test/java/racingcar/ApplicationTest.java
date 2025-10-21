@@ -135,6 +135,12 @@ class ApplicationTest extends NsTest {
         assertThat(AfterCarsPositions).containsExactly(0, 0, 1);
     }
 
+    @Test
+    void 출력_결과_확인() {
+        printCarPosition("pobi", 4);
+        assertThat(output()).isEqualTo("pobi : ----");
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
