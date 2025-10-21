@@ -11,11 +11,16 @@ public class Application {
         List<String> carNames = getCarNameList();
         int totalRounds = getNumberOfTries();
         List<Car> cars = createCarsFrom(carNames);
-        takeOneRound(cars);
+        System.out.println("실행 결과");
+        for (int round = 1; round <= totalRounds; round++) {
+            takeOneRound(cars);
+            printAllCarsPositions(cars);
+        }
     }
 
     public static void printAllCarsPositions(List<Car> cars) {
         cars.forEach(currentCar -> printCarPosition(currentCar.getName(),currentCar.getCurrentPosition()));
+        System.out.println();
     }
 
     public static void printCarPosition(String name, int currentPosition) {
