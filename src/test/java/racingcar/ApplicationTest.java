@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.util.List;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -55,6 +56,16 @@ class ApplicationTest extends NsTest {
                     assertThat(getNumberOfTries()).isEqualTo(5);
                 }
         );
+    }
+
+    @Test
+    void 이름_리스트를_자동차_객체_리스트로_변환한다() {
+        List<String> names = List.of("pobi", "woni");
+        List<Car> cars = Application.createCarsFrom(names);
+
+        assertThat(cars).hasSize(2)
+                .extracting(Car::getName)
+                .containsExactly("pobi", "woni");
     }
 
     @Override
