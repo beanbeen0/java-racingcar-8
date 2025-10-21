@@ -9,7 +9,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         List<String> carNames = getCarNameList();
-        int numberOfTries = getNumberOfTries();
+        int totalRounds = getNumberOfTries();
         List<Car> cars = createCarsFrom(carNames);
     }
 
