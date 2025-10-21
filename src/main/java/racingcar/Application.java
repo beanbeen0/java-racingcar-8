@@ -10,6 +10,7 @@ public class Application {
     public static void main(String[] args) {
         List<String> carNames = getCarNameList();
         int numberOfTries = getNumberOfTries();
+        List<Car> cars = createCarsFrom(carNames);
     }
 
     public static List<String> getCarNameList() {
@@ -22,5 +23,11 @@ public class Application {
         System.out.println("시도할 횟수는 몇 회인가요?");
         String input = Console.readLine();
         return Integer.parseInt(input);
+    }
+
+    public static List<Car> createCarsFrom(List<String> names) {
+        return names.stream()
+                .map(Car::new)
+                .toList();
     }
 }
