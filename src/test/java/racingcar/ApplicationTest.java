@@ -192,6 +192,22 @@ class ApplicationTest extends NsTest {
         assertThat(output()).isEqualTo("최종 우승자 : pobi, jun");
     }
 
+    @Test
+    void 자동차의_이름이_5자_초과면_예외가_발생한다() {
+        String name = "abcdef";
+
+        assertThatThrownBy(() -> new RacingCar(name))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 자동차의_이름이_없으면_예외가_발생한다() {
+        String name = "";
+
+        assertThatThrownBy(() -> new RacingCar(name))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
