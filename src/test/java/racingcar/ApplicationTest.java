@@ -180,6 +180,18 @@ class ApplicationTest extends NsTest {
         assertThat(winners).containsExactly("pobi", "jun");
     }
 
+    @Test
+    void 우승자를_출력한다() {
+        //given
+        List<String> names = List.of("pobi","jun");
+
+        //when
+        printWinners(names);
+
+        //then
+        assertThat(output()).isEqualTo("최종 우승자 : pobi, jun");
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});

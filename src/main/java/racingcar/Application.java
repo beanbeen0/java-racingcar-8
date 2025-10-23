@@ -21,6 +21,12 @@ public class Application {
         }
 
         List<String> winnersNames = findWinnersNames(histories.getLast().infoList);
+        printWinners(winnersNames);
+    }
+
+    public static void printWinners(List<String> winnersNames) {
+        String resultMessage = "최종 우승자 : " + String.join(", ", winnersNames);
+        System.out.println(resultMessage);
     }
 
     public static List<String> findWinnersNames(List<CarInfo> carInfoList) {
