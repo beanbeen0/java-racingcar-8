@@ -59,6 +59,16 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 시도_횟수가_0회인_경우() {
+        assertSimpleTest(
+                () -> {
+                    run("pobi,woni", "0");
+                    assertThat(output()).contains("pobi : ", "woni : ", "최종 우승자 : pobi, woni");
+                }
+        );
+    }
+
+    @Test
     void 이름_리스트를_자동차_객체_리스트로_변환한다() {
         List<String> names = List.of("pobi", "woni");
         List<RacingCar> cars = Application.createRacingCarsFrom(names);
@@ -183,7 +193,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 우승자를_출력한다() {
         //given
-        List<String> names = List.of("pobi","jun");
+        List<String> names = List.of("pobi", "jun");
 
         //when
         printWinners(names);

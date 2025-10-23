@@ -14,8 +14,8 @@ public class Application {
 
         List<RoundHistory> histories = new ArrayList<>();
         System.out.println("\n실행 결과");
-        for (int round = 1; round <= totalRounds; round++) {
-            takeOneRound(racingCars);
+        for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
+            if (round <= totalRounds) takeOneRound(racingCars);
             RoundHistory thisRoundHistory = addHistory(histories, racingCars);
             printRoundHistory(thisRoundHistory);
         }
