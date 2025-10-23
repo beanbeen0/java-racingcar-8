@@ -10,21 +10,41 @@ public class Application {
     public static void main(String[] args) {
         List<String> carNames = getCarNameList();
         int totalRounds = getNumberOfTries();
-        List<Car> cars = createCarsFrom(carNames);
+        List<RacingCar> racingCars = createRacingCarsFrom(carNames);
+
+        List<RoundHistory> histories = new ArrayList<>();
         System.out.println("실행 결과");
         for (int round = 1; round <= totalRounds; round++) {
-            takeOneRound(cars);
-            printAllCarsPositions(cars);
+            takeOneRound(racingCars);
+            RoundHistory thisRoundHistory = addHistory(histories, racingCars);
+            printRoundHistory(thisRoundHistory);
         }
     }
 
-    public static void printAllCarsPositions(List<Car> cars) {
-        cars.forEach(currentCar -> printCarPosition(currentCar.getName(),currentCar.getCurrentPosition()));
+    public static RoundHistory addHistory(List<RoundHistory> histories, List<RacingCar> racingCars) {
+        //racingCar로 carInfo리스트 생성
+        List<CarInfo> carInfoList = new ArrayList<>();
+        for (RacingCar racingCar: racingCars) {
+            CarInfo carInfo = new CarInfo(racingCar.getName(), racingCar.getCurrentPosition());
+            carInfoList.add(carInfo);
+        }
+
+        //carInfo리스트로 RoundHistory 생성해 histories에 추가.
+        RoundHistory thisRoudnHistory = new RoundHistory(carInfoList);
+        histories.add(thisRoudnHistory);
+
+        return thisRoudnHistory;
+    }
+
+    public static void printRoundHistory(RoundHistory thisRoundHistory) {
+        for (CarInfo carInfo : thisRoundHistory.infoList) {
+            printCarInfo(carInfo);
+        }
         System.out.println();
     }
 
-    public static void printCarPosition(String name, int currentPosition) {
-        System.out.println(name + " : " +  "-".repeat(currentPosition));
+    public static void printCarInfo(CarInfo carInfo) {
+        System.out.println(carInfo.name() + " : " + "-".repeat(carInfo.progress()));
     }
 
     public static List<String> getCarNameList() {
@@ -39,13 +59,13 @@ public class Application {
         return Integer.parseInt(input);
     }
 
-    public static List<Car> createCarsFrom(List<String> names) {
+    public static List<RacingCar> createRacingCarsFrom(List<String> names) {
         return names.stream()
-                .map(Car::new)
+                .map(RacingCar::new)
                 .toList();
     }
 
-    public static void takeOneRound(List<Car> cars) {
-        cars.forEach(Car::moveRandomly);
+    public static void takeOneRound(List<RacingCar> cars) {
+        cars.forEach(RacingCar::moveRandomly);
     }
 }

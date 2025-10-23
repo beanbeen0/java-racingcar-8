@@ -1,6 +1,7 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -60,16 +61,16 @@ class ApplicationTest extends NsTest {
     @Test
     void 이름_리스트를_자동차_객체_리스트로_변환한다() {
         List<String> names = List.of("pobi", "woni");
-        List<Car> cars = Application.createCarsFrom(names);
+        List<RacingCar> cars = Application.createRacingCarsFrom(names);
 
         assertThat(cars).hasSize(2)
-                .extracting(Car::getName)
+                .extracting(RacingCar::getName)
                 .containsExactly("pobi", "woni");
     }
 
     @Test
     void 무작위_수가_4미만이면_자동차는_전진하지_않는다() {
-        Car car1 = new Car("car1");
+        RacingCar car1 = new RacingCar("car1");
         assertThat(car1.getCurrentPosition()).isEqualTo(0);
         assertRandomNumberInRangeTest(
                 () -> {
@@ -82,7 +83,7 @@ class ApplicationTest extends NsTest {
 
     @Test
     void 무작위_수가_4이상이면_자동차는_전진한다() {
-        Car car1 = new Car("car1");
+        RacingCar car1 = new RacingCar("car1");
         assertThat(car1.getCurrentPosition()).isEqualTo(0);
         assertRandomNumberInRangeTest(
                 () -> {
@@ -95,12 +96,12 @@ class ApplicationTest extends NsTest {
 
     @Test
     void 한_라운드_전진_테스트() {
-        Car car1 = new Car("car1");
-        Car car2 = new Car("car2");
-        Car car3 = new Car("car3");
-        List<Car> cars = List.of(car1, car2, car3);
+        RacingCar car1 = new RacingCar("car1");
+        RacingCar car2 = new RacingCar("car2");
+        RacingCar car3 = new RacingCar("car3");
+        List<RacingCar> cars = List.of(car1, car2, car3);
 
-        List<Integer> beforeCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        List<Integer> beforeCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
         assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
 
         assertRandomNumberInRangeTest(
@@ -110,18 +111,18 @@ class ApplicationTest extends NsTest {
                 5, 4, 3
         );
 
-        List<Integer> AfterCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        List<Integer> AfterCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
         assertThat(AfterCarsPositions).containsExactly(1, 1, 0);
     }
 
     @Test
     void 한_라운드_전진_테스트2() {
-        Car car1 = new Car("car1");
-        Car car2 = new Car("car2");
-        Car car3 = new Car("car3");
-        List<Car> cars = List.of(car1, car2, car3);
+        RacingCar car1 = new RacingCar("car1");
+        RacingCar car2 = new RacingCar("car2");
+        RacingCar car3 = new RacingCar("car3");
+        List<RacingCar> cars = List.of(car1, car2, car3);
 
-        List<Integer> beforeCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        List<Integer> beforeCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
         assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
 
         assertRandomNumberInRangeTest(
@@ -131,14 +132,37 @@ class ApplicationTest extends NsTest {
                 0, 0, 9
         );
 
-        List<Integer> AfterCarsPositions = cars.stream().map(Car::getCurrentPosition).toList();
+        List<Integer> AfterCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
         assertThat(AfterCarsPositions).containsExactly(0, 0, 1);
     }
 
     @Test
-    void 출력_결과_확인() {
-        printCarPosition("pobi", 4);
+    void 한_줄_출력_결과_확인() {
+        //given
+        CarInfo info = new CarInfo("pobi", 4);
+
+        //when
+        printCarInfo(info);
+
+        //then
         assertThat(output()).isEqualTo("pobi : ----");
+    }
+
+    @Test
+    void 한_히스토리_출력_결과_확인() {
+        //given
+        CarInfo carInfo1 = new CarInfo("pobi", 3);
+        CarInfo carInfo2 = new CarInfo("woni", 2);
+        List<CarInfo> carInfoList = new ArrayList<>();
+        carInfoList.add(carInfo1);
+        carInfoList.add(carInfo2);
+        RoundHistory roundHistory = new RoundHistory(carInfoList);
+
+        //when
+        printRoundHistory(roundHistory);
+
+        //then
+        assertThat(output()).isEqualTo("pobi : ---\nwoni : --");
     }
 
     @Override
