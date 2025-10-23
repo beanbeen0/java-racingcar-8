@@ -165,6 +165,21 @@ class ApplicationTest extends NsTest {
         assertThat(output()).isEqualTo("pobi : ---\nwoni : --");
     }
 
+    @Test
+    void 공동_우승자들을_조회한다() {
+        //given
+        CarInfo carInfo1 = new CarInfo("pobi", 3);
+        CarInfo carInfo2 = new CarInfo("woni", 2);
+        CarInfo carInfo3 = new CarInfo("jun", 3);
+        List<CarInfo> carInfoList = List.of(carInfo1, carInfo2, carInfo3);
+
+        //when
+        List<String> winners = findWinnersNames(carInfoList);
+
+        //then
+        assertThat(winners).containsExactly("pobi", "jun");
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
