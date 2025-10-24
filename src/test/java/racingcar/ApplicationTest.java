@@ -47,7 +47,15 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 시도할_횟수를_입력하면_정수로_반환한다1() {
+    void 이름이_중복되면_예외를_반환한다() {
+        List<String> names = List.of("a", "b", "b");
+
+        assertThatThrownBy(() -> validateNotDuplicateNames(names))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 시도할_횟수를_입력하면_정수로_반환한다() {
         //given
         String input = "5";
 
