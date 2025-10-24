@@ -4,7 +4,6 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
@@ -67,6 +66,16 @@ class ApplicationTest extends NsTest {
                     assertThat(output()).contains("pobi : ", "woni : ", "최종 우승자 : pobi, woni");
                 }
         );
+    }
+
+    @Test
+    void 시도_횟수가_음수이면_예외가_발생한다() {
+        //given
+        int tries = -1;
+
+        //then
+        assertThatThrownBy(() -> validateNotNegative(tries))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
