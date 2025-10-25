@@ -10,18 +10,20 @@ import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
+        // 경주 정보 입력 받기
         List<String> carNames = getCarNameList();
         int totalRounds = getNumberOfTries();
-        List<RacingCar> racingCars = createRacingCarsFrom(carNames);
 
+        // 경주 진행
+        List<RacingCar> racingCars = createRacingCarsFrom(carNames);
         List<RoundHistory> histories = new ArrayList<>();
-        System.out.println("\n실행 결과");
         for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
             if (round <= totalRounds) takeOneRound(racingCars);
             RoundHistory thisRoundHistory = addHistory(histories, racingCars);
-            printRoundHistory(thisRoundHistory);
         }
 
+        // 결과 출력
+        printAllHistory(histories);
         List<String> winnersNames = findWinnersNames(histories.getLast().infoList);
         printWinners(winnersNames);
     }
@@ -64,6 +66,13 @@ public class Application {
         histories.add(thisRoudnHistory);
 
         return thisRoudnHistory;
+    }
+
+    private static void printAllHistory(List<RoundHistory> histories) {
+        System.out.println("\n실행 결과");
+        for (RoundHistory history : histories) {
+            printRoundHistory(history);
+        }
     }
 
     public static void printRoundHistory(RoundHistory thisRoundHistory) {
