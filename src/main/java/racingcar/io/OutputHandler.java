@@ -1,6 +1,8 @@
-package racingcar;
+package racingcar.io;
 
 import java.util.List;
+import racingcar.dto.CarInfo;
+import racingcar.dto.RoundHistory;
 
 public class OutputHandler {
 
@@ -17,7 +19,7 @@ public class OutputHandler {
     }
 
     static void printRoundHistory(RoundHistory thisRoundHistory) {
-        for (CarInfo carInfo : thisRoundHistory.infoList) {
+        for (CarInfo carInfo : thisRoundHistory.getInfoList()) {
             printCarInfo(carInfo);
         }
         System.out.println();

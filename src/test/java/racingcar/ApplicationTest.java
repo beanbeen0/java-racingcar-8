@@ -1,10 +1,10 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import racingcar.dto.CarInfo;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;

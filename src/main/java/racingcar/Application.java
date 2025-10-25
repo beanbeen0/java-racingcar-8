@@ -2,6 +2,12 @@ package racingcar;
 
 import java.util.ArrayList;
 import java.util.List;
+import racingcar.dto.CarInfo;
+import racingcar.game.RacingGame;
+import racingcar.dto.RoundHistory;
+import racingcar.dto.SetupData;
+import racingcar.io.InputHandler;
+import racingcar.io.OutputHandler;
 
 public class Application {
 
@@ -10,7 +16,7 @@ public class Application {
         RacingGame game = new RacingGame();
         game.init(setupData);
         List<RoundHistory> histories = game.race();
-        List<String> winnersNames = findWinnersNames(histories.getLast().infoList);
+        List<String> winnersNames = findWinnersNames(histories.getLast().getInfoList());
         OutputHandler.printGameResult(histories, winnersNames);
     }
 

@@ -1,9 +1,12 @@
-package racingcar;
+package racingcar.game;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import racingcar.dto.CarInfo;
+import racingcar.dto.RoundHistory;
+import racingcar.dto.SetupData;
 
 public class RacingGame {
 

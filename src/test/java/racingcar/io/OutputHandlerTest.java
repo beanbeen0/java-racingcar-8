@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.io;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,6 +6,9 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import racingcar.Application;
+import racingcar.dto.CarInfo;
+import racingcar.dto.RoundHistory;
 
 class OutputHandlerTest extends NsTest {
 
