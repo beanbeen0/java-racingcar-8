@@ -14,13 +14,9 @@ public class Application {
         List<String> carNames = getCarNameList();
         int totalRounds = getNumberOfTries();
 
-        // 경주 진행
-        List<RacingCar> racingCars = createRacingCarsFrom(carNames);
-        List<RoundHistory> histories = new ArrayList<>();
-        for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
-            if (round <= totalRounds) takeOneRound(racingCars);
-            RoundHistory thisRoundHistory = addHistory(histories, racingCars);
-        }
+        RacingGame game = new RacingGame();
+        game.init(carNames, totalRounds);
+        List<RoundHistory> histories = game.race();
 
         // 결과 출력
         printAllHistory(histories);
@@ -51,21 +47,6 @@ public class Application {
         }
 
         return winnersName;
-    }
-
-    public static RoundHistory addHistory(List<RoundHistory> histories, List<RacingCar> racingCars) {
-        //racingCar로 carInfo리스트 생성
-        List<CarInfo> carInfoList = new ArrayList<>();
-        for (RacingCar racingCar: racingCars) {
-            CarInfo carInfo = new CarInfo(racingCar.getName(), racingCar.getCurrentPosition());
-            carInfoList.add(carInfo);
-        }
-
-        //carInfo리스트로 RoundHistory 생성해 histories에 추가.
-        RoundHistory thisRoudnHistory = new RoundHistory(carInfoList);
-        histories.add(thisRoudnHistory);
-
-        return thisRoudnHistory;
     }
 
     private static void printAllHistory(List<RoundHistory> histories) {
@@ -117,25 +98,5 @@ public class Application {
         if (result < 0 ) {
             throw new IllegalArgumentException("시도 횟수는 음수이면 안됩니다. : " + result);
         }
-    }
-
-    public static List<RacingCar> createRacingCarsFrom(List<String> names) {
-        validateNotDuplicateNames(names);
-        return names.stream()
-                .map(RacingCar::new)
-                .toList();
-    }
-
-    public static void validateNotDuplicateNames(List<String> names) {
-        Set<String> seen = new HashSet<>();
-        for (String name : names) {
-            if (!seen.add(name)) {
-                throw new IllegalArgumentException("중복된 이름이 있습니다. : " + name);
-            }
-        }
-    }
-
-    public static void takeOneRound(List<RacingCar> cars) {
-        cars.forEach(RacingCar::moveRandomly);
     }
 }

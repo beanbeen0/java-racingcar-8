@@ -47,14 +47,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 이름이_중복되면_예외를_반환한다() {
-        List<String> names = List.of("a", "b", "b");
-
-        assertThatThrownBy(() -> validateNotDuplicateNames(names))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
     void 시도할_횟수를_입력하면_정수로_반환한다() {
         //given
         String input = "5";
@@ -87,16 +79,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 이름_리스트를_자동차_객체_리스트로_변환한다() {
-        List<String> names = List.of("pobi", "woni");
-        List<RacingCar> cars = Application.createRacingCarsFrom(names);
-
-        assertThat(cars).hasSize(2)
-                .extracting(RacingCar::getName)
-                .containsExactly("pobi", "woni");
-    }
-
-    @Test
     void 무작위_수가_4미만이면_자동차는_전진하지_않는다() {
         RacingCar car1 = new RacingCar("car1");
         assertThat(car1.getCurrentPosition()).isEqualTo(0);
@@ -120,48 +102,6 @@ class ApplicationTest extends NsTest {
                 4, 5, 6, 7, 8, 9
         );
         assertThat(car1.getCurrentPosition()).isEqualTo(1);
-    }
-
-    @Test
-    void 한_라운드_전진_테스트() {
-        RacingCar car1 = new RacingCar("car1");
-        RacingCar car2 = new RacingCar("car2");
-        RacingCar car3 = new RacingCar("car3");
-        List<RacingCar> cars = List.of(car1, car2, car3);
-
-        List<Integer> beforeCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
-        assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
-
-        assertRandomNumberInRangeTest(
-                () -> {
-                    takeOneRound(cars);
-                },
-                5, 4, 3
-        );
-
-        List<Integer> AfterCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
-        assertThat(AfterCarsPositions).containsExactly(1, 1, 0);
-    }
-
-    @Test
-    void 한_라운드_전진_테스트2() {
-        RacingCar car1 = new RacingCar("car1");
-        RacingCar car2 = new RacingCar("car2");
-        RacingCar car3 = new RacingCar("car3");
-        List<RacingCar> cars = List.of(car1, car2, car3);
-
-        List<Integer> beforeCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
-        assertThat(beforeCarsPositions).containsExactly(0, 0, 0);
-
-        assertRandomNumberInRangeTest(
-                () -> {
-                    takeOneRound(cars);
-                },
-                0, 0, 9
-        );
-
-        List<Integer> AfterCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
-        assertThat(AfterCarsPositions).containsExactly(0, 0, 1);
     }
 
     @Test
