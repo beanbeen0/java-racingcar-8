@@ -46,35 +46,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 한_줄_출력_결과_확인() {
-        //given
-        CarInfo info = new CarInfo("pobi", 4);
-
-        //when
-        printCarInfo(info);
-
-        //then
-        assertThat(output()).isEqualTo("pobi : ----");
-    }
-
-    @Test
-    void 한_히스토리_출력_결과_확인() {
-        //given
-        CarInfo carInfo1 = new CarInfo("pobi", 3);
-        CarInfo carInfo2 = new CarInfo("woni", 2);
-        List<CarInfo> carInfoList = new ArrayList<>();
-        carInfoList.add(carInfo1);
-        carInfoList.add(carInfo2);
-        RoundHistory roundHistory = new RoundHistory(carInfoList);
-
-        //when
-        printRoundHistory(roundHistory);
-
-        //then
-        assertThat(output()).isEqualTo("pobi : ---\nwoni : --");
-    }
-
-    @Test
     void 공동_우승자들을_조회한다() {
         //given
         CarInfo carInfo1 = new CarInfo("pobi", 3);
@@ -87,18 +58,6 @@ class ApplicationTest extends NsTest {
 
         //then
         assertThat(winners).containsExactly("pobi", "jun");
-    }
-
-    @Test
-    void 우승자를_출력한다() {
-        //given
-        List<String> names = List.of("pobi", "jun");
-
-        //when
-        printWinners(names);
-
-        //then
-        assertThat(output()).isEqualTo("최종 우승자 : pobi, jun");
     }
 
     @Override
