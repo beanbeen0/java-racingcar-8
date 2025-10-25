@@ -90,13 +90,6 @@ public class Application {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시도 횟수는 정수여야 합니다.", e);
         }
-        validateNotNegative(tries);
         return tries;
-    }
-
-    public static void validateNotNegative(int result) {
-        if (result < 0 ) {
-            throw new IllegalArgumentException("시도 횟수는 음수이면 안됩니다. : " + result);
-        }
     }
 }

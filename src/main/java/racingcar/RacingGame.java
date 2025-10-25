@@ -11,6 +11,7 @@ public class RacingGame {
     private int totalRounds;
 
     public void init(List<String> carNames, int totalRounds) {
+        validateNotNegative(totalRounds);
         this.carNames = carNames;
         this.totalRounds = totalRounds;
     }
@@ -38,6 +39,12 @@ public class RacingGame {
             if (!seen.add(name)) {
                 throw new IllegalArgumentException("중복된 이름이 있습니다. : " + name);
             }
+        }
+    }
+
+    void validateNotNegative(int result) {
+        if (result < 0 ) {
+            throw new IllegalArgumentException("시도 횟수는 음수이면 안됩니다. : " + result);
         }
     }
 

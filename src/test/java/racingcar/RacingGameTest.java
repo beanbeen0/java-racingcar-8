@@ -74,4 +74,57 @@ class RacingGameTest {
         List<Integer> AfterCarsPositions = cars.stream().map(RacingCar::getCurrentPosition).toList();
         assertThat(AfterCarsPositions).containsExactly(0, 0, 1);
     }
+
+    @Test
+    void 자동차의_이름이_5자_초과면_예외가_발생한다() {
+        String name = "abcdef";
+
+        assertThatThrownBy(() -> new RacingCar(name))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 자동차의_이름이_없으면_예외가_발생한다() {
+        String name = "";
+
+        assertThatThrownBy(() -> new RacingCar(name))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 무작위_수가_4미만이면_자동차는_전진하지_않는다() {
+        RacingCar car1 = new RacingCar("car1");
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+        assertRandomNumberInRangeTest(
+                () -> {
+                    car1.moveRandomly();
+                },
+                0, 1, 2, 3
+        );
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+    }
+
+    @Test
+    void 무작위_수가_4이상이면_자동차는_전진한다() {
+        RacingCar car1 = new RacingCar("car1");
+        assertThat(car1.getCurrentPosition()).isEqualTo(0);
+        assertRandomNumberInRangeTest(
+                () -> {
+                    car1.moveRandomly();
+                },
+                4, 5, 6, 7, 8, 9
+        );
+        assertThat(car1.getCurrentPosition()).isEqualTo(1);
+    }
+
+    @Test
+    void 시도_횟수가_음수이면_예외가_발생한다() {
+        RacingGame game = new RacingGame();
+        //given
+        int tries = -1;
+
+        //then
+        assertThatThrownBy(() -> game.validateNotNegative(tries))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
