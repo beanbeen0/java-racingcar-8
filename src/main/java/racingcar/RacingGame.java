@@ -7,17 +7,17 @@ import java.util.Set;
 
 public class RacingGame {
 
-    private List<String> carNames;
+    private List<RacingCar> racingCars;
     private int totalRounds;
 
-    public void init(List<String> carNames, int totalRounds) {
-        validateNotNegative(totalRounds);
-        this.carNames = carNames;
-        this.totalRounds = totalRounds;
+    public void init(SetupData setupData) {
+        validateNotDuplicateNames(setupData.carNames());
+        this.racingCars = createRacingCarsFrom(setupData.carNames());
+        validateNotNegative(setupData.totalRounds());
+        this.totalRounds = setupData.totalRounds();
     }
 
     public List<RoundHistory> race() {
-        List<RacingCar> racingCars = createRacingCarsFrom(carNames);
         List<RoundHistory> histories = new ArrayList<>();
         for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
             if (round <= totalRounds) takeOneRound(racingCars);
@@ -27,7 +27,6 @@ public class RacingGame {
     }
 
     List<RacingCar> createRacingCarsFrom(List<String> names) {
-        validateNotDuplicateNames(names);
         return names.stream()
                 .map(RacingCar::new)
                 .toList();

@@ -1,21 +1,13 @@
 package racingcar;
 
-import camp.nextstep.edu.missionutils.Console;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
-        // 경주 정보 입력 받기
-        List<String> carNames = getCarNameList();
-        int totalRounds = getNumberOfTries();
-
+        SetupData setupData = InputHandler.getSetupData();
         RacingGame game = new RacingGame();
-        game.init(carNames, totalRounds);
+        game.init(setupData);
         List<RoundHistory> histories = game.race();
 
         // 결과 출력
@@ -65,31 +57,5 @@ public class Application {
 
     public static void printCarInfo(CarInfo carInfo) {
         System.out.println(carInfo.name() + " : " + "-".repeat(carInfo.progress()));
-    }
-
-    public static List<String> getCarNameList() {
-        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String input = Console.readLine();
-        return parseCarNames(input);
-    }
-
-    public static ArrayList<String> parseCarNames(String input) {
-        return new ArrayList<>(Arrays.asList(input.split(",")));
-    }
-
-    public static int getNumberOfTries() {
-        System.out.println("시도할 횟수는 몇 회인가요?");
-        String input = Console.readLine().trim();
-        return parseTries(input);
-    }
-
-    public static int parseTries(String input) {
-        int tries;
-        try {
-            tries = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("시도 횟수는 정수여야 합니다.", e);
-        }
-        return tries;
     }
 }

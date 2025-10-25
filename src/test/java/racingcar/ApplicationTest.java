@@ -36,29 +36,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 쉼표로_구분된_이름을_입력하면_개별_이름_리스트로_변환한다() {
-        //given
-        String input = "pobi,woni";
-
-        //when
-        List<String> names = parseCarNames(input);
-
-        assertThat(names).containsExactly("pobi", "woni");
-    }
-
-    @Test
-    void 시도할_횟수를_입력하면_정수로_반환한다() {
-        //given
-        String input = "5";
-
-        //when
-        int tries = parseTries(input);
-
-        //then
-        assertThat(tries).isEqualTo(5);
-    }
-
-    @Test
     void 시도_횟수가_0회인_경우() {
         assertSimpleTest(
                 () -> {
