@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import racingcar.dto.CarInfo;
 
 class RacingGameTest {
 
@@ -138,7 +137,7 @@ class RacingGameTest {
         List<RacingCar> racingCars = List.of(car1, car2, car3);
 
         //when
-        List<String> winners = RacingGame.findWinnersNames(racingCars);
+        List<String> winners = RacingGame.findWinnersNames(racingCars, true);
 
         //then
         assertThat(winners).containsExactly("pobi", "jun");

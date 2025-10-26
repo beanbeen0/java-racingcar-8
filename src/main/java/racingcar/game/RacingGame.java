@@ -11,6 +11,7 @@ public class RacingGame {
 
     private List<RacingCar> racingCars;
     private int totalRounds;
+    private boolean finished = false;
 
     public void init(SetupData setupData) {
         validateNotDuplicateNames(setupData.carNames());
@@ -25,6 +26,7 @@ public class RacingGame {
             if (round <= totalRounds) takeOneRound(racingCars);
             addHistory(histories, racingCars);
         }
+        this.finished = true;
         return histories;
     }
 
@@ -58,10 +60,13 @@ public class RacingGame {
     }
 
     public List<String> getWinnersNames() {
-        return findWinnersNames(this.racingCars);
+        return findWinnersNames(this.racingCars, this.finished);
     }
 
-    static List<String> findWinnersNames(List<RacingCar> racingCars) {
+    static List<String> findWinnersNames(List<RacingCar> racingCars, boolean finished) {
+        if (!finished) {
+            throw new IllegalArgumentException("아직 경기가 끝나지 않았습니다.");
+        }
         int max = getMaxProgress(racingCars);
         return filterNamesWithPosition(racingCars, max);
     }
