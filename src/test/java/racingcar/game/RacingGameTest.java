@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import racingcar.dto.CarInfo;
 
 class RacingGameTest {
 
@@ -126,5 +127,20 @@ class RacingGameTest {
         //then
         assertThatThrownBy(() -> game.validateNotNegative(tries))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 공동_우승자들을_조회한다() {
+        //given
+        RacingCar car1 = new RacingCar("pobi", 3);
+        RacingCar car2 = new RacingCar("woni", 2);
+        RacingCar car3 = new RacingCar("jun", 3);
+        List<RacingCar> racingCars = List.of(car1, car2, car3);
+
+        //when
+        List<String> winners = RacingGame.findWinnersNames(racingCars);
+
+        //then
+        assertThat(winners).containsExactly("pobi", "jun");
     }
 }

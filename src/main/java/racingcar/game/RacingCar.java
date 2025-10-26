@@ -3,13 +3,20 @@ package racingcar.game;
 import camp.nextstep.edu.missionutils.Randoms;
 
 public class RacingCar {
+
     private String name;
-    private int currentPosition;
+    private int currentPosition = 0;
 
     public RacingCar(String name) {
         validate(name);
         this.name = name;
         this.currentPosition = 0;
+    }
+
+    public RacingCar(String name, int initialPosition) {
+        validate(name);
+        this.name = name;
+        this.currentPosition = initialPosition;
     }
 
     public String getName() {
