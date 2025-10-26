@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import racingcar.dto.CarInfo;
 import racingcar.dto.RoundHistory;
 import racingcar.dto.SetupData;
 
@@ -54,17 +53,7 @@ public class RacingGame {
         cars.forEach(RacingCar::moveRandomly);
     }
 
-    RoundHistory addHistory(List<RoundHistory> histories, List<RacingCar> racingCars) {
-        RoundHistory thisRoudnHistory = convertRoundHistory(racingCars);
-        histories.add(thisRoudnHistory);
-        return thisRoudnHistory;
-    }
-
-    private RoundHistory convertRoundHistory(List<RacingCar> racingCars) {
-        List<CarInfo> carInfoList = new ArrayList<>();
-        for (RacingCar racingCar: racingCars) {
-            carInfoList.add(CarInfo.create(racingCar));
-        }
-        return new RoundHistory(carInfoList);
+    void addHistory(List<RoundHistory> histories, List<RacingCar> racingCars) {
+        histories.add(RoundHistory.create(racingCars));
     }
 }
