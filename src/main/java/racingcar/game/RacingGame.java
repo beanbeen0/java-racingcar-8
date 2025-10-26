@@ -67,12 +67,8 @@ public class RacingGame {
     private List<CarInfo> convertCarInfoList(List<RacingCar> racingCars) {
         List<CarInfo> carInfoList = new ArrayList<>();
         for (RacingCar racingCar: racingCars) {
-            carInfoList.add(convertCarInfo(racingCar));
+            carInfoList.add(CarInfo.create(racingCar));
         }
         return carInfoList;
-    }
-
-    private CarInfo convertCarInfo(RacingCar racingCar) {
-        return new CarInfo(racingCar.getName(), racingCar.getCurrentPosition());
     }
 }
