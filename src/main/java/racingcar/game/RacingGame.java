@@ -75,22 +75,16 @@ public class RacingGame {
     }
 
     private static int getMaxProgress(List<RacingCar> racingCars) {
-        int max = 0;
-        for (RacingCar car : racingCars) {
-            if (car.getCurrentPosition() > max) {
-                max = car.getCurrentPosition();
-            }
-        }
-        return max;
+        return racingCars.stream()
+                .mapToInt(RacingCar::getCurrentPosition)
+                .max()
+                .orElse(0);
     }
 
     private static List<String> filterNamesWithPosition(List<RacingCar> racingCars, int position) {
-        List<String> winnersName = new ArrayList<>();
-        for (RacingCar car : racingCars) {
-            if (car.getCurrentPosition() == position) {
-                winnersName.add(car.getName());
-            }
-        }
-        return winnersName;
+        return racingCars.stream()
+                .filter(car -> car.getCurrentPosition() == position)
+                .map(RacingCar::getName)
+                .toList();
     }
 }
