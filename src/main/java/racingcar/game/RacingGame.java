@@ -62,22 +62,27 @@ public class RacingGame {
     }
 
     static List<String> findWinnersNames(List<RacingCar> racingCars) {
-        // 최댓값 얻기
+        int max = getMaxProgress(racingCars);
+        return filterNamesWithPosition(racingCars, max);
+    }
+
+    private static int getMaxProgress(List<RacingCar> racingCars) {
         int max = 0;
         for (RacingCar car : racingCars) {
             if (car.getCurrentPosition() > max) {
                 max = car.getCurrentPosition();
             }
         }
+        return max;
+    }
 
-        //최댓값으로 우승자 이름 추출하기
+    private static List<String> filterNamesWithPosition(List<RacingCar> racingCars, int position) {
         List<String> winnersName = new ArrayList<>();
         for (RacingCar car : racingCars) {
-            if (car.getCurrentPosition() == max) {
+            if (car.getCurrentPosition() == position) {
                 winnersName.add(car.getName());
             }
         }
-
         return winnersName;
     }
 }

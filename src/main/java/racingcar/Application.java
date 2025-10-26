@@ -1,8 +1,6 @@
 package racingcar;
 
-import java.util.ArrayList;
 import java.util.List;
-import racingcar.dto.CarInfo;
 import racingcar.game.RacingGame;
 import racingcar.dto.RoundHistory;
 import racingcar.dto.SetupData;
