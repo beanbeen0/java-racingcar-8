@@ -13,21 +13,12 @@ public class RacingGame {
     private int totalRounds;
     private boolean finished = false;
 
+    // 생성 및 검증
     public void init(SetupData setupData) {
         validateNotDuplicateNames(setupData.carNames());
         this.racingCars = createRacingCarsFrom(setupData.carNames());
         validateNotNegative(setupData.totalRounds());
         this.totalRounds = setupData.totalRounds();
-    }
-
-    public List<RoundHistory> race() {
-        List<RoundHistory> histories = new ArrayList<>();
-        for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
-            if (round <= totalRounds) takeOneRound(racingCars);
-            addHistory(histories, racingCars);
-        }
-        this.finished = true;
-        return histories;
     }
 
     List<RacingCar> createRacingCarsFrom(List<String> names) {
@@ -51,6 +42,17 @@ public class RacingGame {
         }
     }
 
+    // 경주 진행
+    public List<RoundHistory> race() {
+        List<RoundHistory> histories = new ArrayList<>();
+        for (int round = 1; round <= Math.max(totalRounds, 1); round++) {
+            if (round <= totalRounds) takeOneRound(racingCars);
+            addHistory(histories, racingCars);
+        }
+        this.finished = true;
+        return histories;
+    }
+
     void takeOneRound(List<RacingCar> cars) {
         cars.forEach(RacingCar::moveRandomly);
     }
@@ -59,6 +61,7 @@ public class RacingGame {
         histories.add(RoundHistory.create(racingCars));
     }
 
+    // 우승자 조회
     public List<String> getWinnersNames() {
         return findWinnersNames(this.racingCars, this.finished);
     }
