@@ -55,20 +55,16 @@ public class RacingGame {
     }
 
     RoundHistory addHistory(List<RoundHistory> histories, List<RacingCar> racingCars) {
-        List<CarInfo> carInfoList = convertCarInfoList(racingCars);
-
-        //carInfo리스트로 RoundHistory 생성해 histories에 추가.
-        RoundHistory thisRoudnHistory = new RoundHistory(carInfoList);
+        RoundHistory thisRoudnHistory = convertRoundHistory(racingCars);
         histories.add(thisRoudnHistory);
-
         return thisRoudnHistory;
     }
 
-    private List<CarInfo> convertCarInfoList(List<RacingCar> racingCars) {
+    private RoundHistory convertRoundHistory(List<RacingCar> racingCars) {
         List<CarInfo> carInfoList = new ArrayList<>();
         for (RacingCar racingCar: racingCars) {
             carInfoList.add(CarInfo.create(racingCar));
         }
-        return carInfoList;
+        return new RoundHistory(carInfoList);
     }
 }
